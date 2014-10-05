@@ -1,4 +1,4 @@
-gnuob-api
+gnuob-login
 =========
 
-GNUOB api project
+GNUOB Application Programming Interface project
