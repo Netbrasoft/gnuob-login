@@ -22,7 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.jar.plugin>2.5</version.jar.plugin>
 		<version.org.jboss.logging.jboss-logging>3.1.4.GA</version.org.jboss.logging.jboss-logging>
-		<version.org.picketbox>4.0.21.Beta1</version.org.picketbox>
+		<version.PBKDF2>1.1.0</version.PBKDF2>
+		<version.picketbox>4.0.21.Final</version.picketbox>
 
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -33,7 +34,7 @@
 			<dependency>
 				<groupId>org.wildfly.bom</groupId>
 				<artifactId>jboss-javaee-7.0-with-all</artifactId>
-				<version>8.1.0.Final</version>
+				<version>8.2.0.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -48,7 +49,12 @@
 		<dependency>
 			<groupId>org.picketbox</groupId>
 			<artifactId>picketbox</artifactId>
-			<version>${version.org.picketbox}</version>
+			<version>${version.picketbox}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.rtner</groupId>
+			<artifactId>PBKDF2</artifactId>
+			<version>${version.PBKDF2}</version>
 		</dependency>
 	</dependencies>
 
