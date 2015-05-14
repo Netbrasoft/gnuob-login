@@ -50,11 +50,13 @@
 			<groupId>org.picketbox</groupId>
 			<artifactId>picketbox</artifactId>
 			<version>${version.picketbox}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.rtner</groupId>
 			<artifactId>PBKDF2</artifactId>
 			<version>${version.PBKDF2}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

@@ -93,7 +93,8 @@ public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLo
    @Override
    public boolean login() throws LoginException {
       if (super.login()) {
-         principal = new GNUOBPrincipal(getUsername(), getUsersPassword(), getUsersSite());
+         String[] info = getUsernameAndPassword();
+         principal = new GNUOBPrincipal(info[0], info[1], getUsersSite());
          return true;
       }
       return false;
