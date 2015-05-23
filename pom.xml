@@ -33,8 +33,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.wildfly.bom</groupId>
-				<artifactId>jboss-javaee-7.0-with-all</artifactId>
-				<version>8.2.0.Final</version>
+				<artifactId>jboss-javaee-7.0-wildfly</artifactId>
+				<version>9.0.0.CR2</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -42,6 +42,9 @@
 	</dependencyManagement>
 
 	<dependencies>
+	
+		<!-- UTILS -->
+	
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>
