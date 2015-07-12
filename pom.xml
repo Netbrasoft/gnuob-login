@@ -34,7 +34,7 @@
 			<dependency>
 				<groupId>org.wildfly.bom</groupId>
 				<artifactId>jboss-javaee-7.0-wildfly</artifactId>
-				<version>9.0.0.CR2</version>
+				<version>9.0.0.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
