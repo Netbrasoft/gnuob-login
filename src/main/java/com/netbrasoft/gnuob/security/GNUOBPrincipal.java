@@ -6,6 +6,8 @@ public class GNUOBPrincipal implements Principal {
 
    private String name;
    private String password;
+   // TODO: user can access multiple sites, refactor this to an string of
+   // arrays with site names.
    private String site;
 
    public GNUOBPrincipal(String name, String password, String site) {

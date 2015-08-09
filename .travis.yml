@@ -1,0 +1,10 @@
+language: java
+jdk: oraclejdk8
+deploy:
+  provider: releases
+  api_key:
+    secure: joPWU4/a9SpIXCHlmuqnegDMeoEO+sKuzB2EaPnepcRxigi2PsIU/jJPv1P/wW0vh3nuSlVyw6vqNn31zbNnzgED7KgcK5ziVw29ZtWcMcqM1A3lZOpVBl6yGw6OdlsecLuctFGmXSyJFY9FRglKCaTo9nrIvrXIng6WIu4a8/MvjhGcTbsejF0C5/cl8TDhx3xMSBKdykSTZXHcfYcLyrMHytHiiysMlOlqPjVrBLRo7psWQ81NgWvyZRkkzZhVIOvuw59JR8DCI+HPOjF4iYxVhqeyWJNo3ZShHVxsmDxVacvW3VGOtf2WLjww2yKguNVcM6GovOziNaiVJP9jaNYwm1WypiohbXwUY9udwCRBuXQHtIM737iasZLb876Z7Ah/SalqBQJHrV/hXO+RUWoGGPsc+nvvPI79K7MX6NDr4deUox50MUxj8DdnpYwY2y4W/aTDd8HjgZPja02CPFAS+Foi0KaFyeEfJT5zmGQNjg2+Vebq2RbxL8itH/LuCQY0vIlG6xBMOsU4Yukbe8CzOHRLoVPHO7r/3oWsWwAPaSXdN7G01uXB7ONnt56fb/B5p7ynyY4yJcaSrXfJZLkhqndqxYJVP6TMYeJwQZ+uz7WE5H+0NUIan9Hwb2ZBpgs34b7FcBOC8HuKXy5HV84fHmFm9/ORHSINRsRBttk=
+  file: target/gnuob-login.jar
+  skip_cleanup: true
+  on:
+    tags: true

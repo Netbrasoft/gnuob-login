@@ -4,7 +4,7 @@
 
 	<groupId>com.netbrasoft.gnuob</groupId>
 	<artifactId>gnuob-login</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>GNU Open Business Platform</name>
 	<description>GNU Open Business Platform is a open source business framework</description>
@@ -21,8 +21,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.jar.plugin>2.5</version.jar.plugin>
-		<version.org.jboss.logging.jboss-logging>3.1.4.GA</version.org.jboss.logging.jboss-logging>
-		<version.org.picketbox>4.0.21.Beta1</version.org.picketbox>
+		<version.org.jboss.logging.jboss-logging>3.2.1.Final</version.org.jboss.logging.jboss-logging>
+		<version.PBKDF2>1.1.1</version.PBKDF2>
+		<version.picketbox>4.9.2.Final</version.picketbox>
 
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -32,8 +33,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.wildfly.bom</groupId>
-				<artifactId>jboss-javaee-7.0-with-all</artifactId>
-				<version>8.1.0.Final</version>
+				<artifactId>jboss-javaee-7.0-wildfly</artifactId>
+				<version>9.0.1.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -41,6 +42,9 @@
 	</dependencyManagement>
 
 	<dependencies>
+	
+		<!-- UTILS -->
+	
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
 			<artifactId>jboss-logging</artifactId>
@@ -48,7 +52,14 @@
 		<dependency>
 			<groupId>org.picketbox</groupId>
 			<artifactId>picketbox</artifactId>
-			<version>${version.org.picketbox}</version>
+			<version>${version.picketbox}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.rtner</groupId>
+			<artifactId>PBKDF2</artifactId>
+			<version>${version.PBKDF2}</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

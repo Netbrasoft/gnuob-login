@@ -15,11 +15,11 @@ import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
 
-import org.jboss.security.auth.spi.DatabaseServerLoginModule;
-
 import com.netbrasoft.gnuob.security.GNUOBPrincipal;
 
-public class GNUOBDatabaseServerLoginModule extends DatabaseServerLoginModule {
+import de.rtner.security.auth.spi.SaltedDatabaseServerLoginModule;
+
+public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLoginModule {
 
    private static final String[] ALL_VALID_OPTIONS = { "siteQuery" };
    private static final String SITE_QUERY = "siteQuery";
@@ -27,7 +27,7 @@ public class GNUOBDatabaseServerLoginModule extends DatabaseServerLoginModule {
 
    private GNUOBPrincipal principal;
 
-   public GNUOBDatabaseServerLoginModule() {
+   public GNUOBSaltedDatabaseServerLoginModule() {
       siteQuery = "select Site from Principals where PrincipalID=?";
    }
 
@@ -80,8 +80,7 @@ public class GNUOBDatabaseServerLoginModule extends DatabaseServerLoginModule {
    }
 
    @Override
-   public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState,
-         Map<String, ?> options) {
+   public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options) {
       addValidOptions(ALL_VALID_OPTIONS);
       super.initialize(subject, callbackHandler, sharedState, options);
 
@@ -94,7 +93,8 @@ public class GNUOBDatabaseServerLoginModule extends DatabaseServerLoginModule {
    @Override
    public boolean login() throws LoginException {
       if (super.login()) {
-         principal = new GNUOBPrincipal(getUsername(), getUsersPassword(), getUsersSite());
+         String[] info = getUsernameAndPassword();
+         principal = new GNUOBPrincipal(info[0], info[1], getUsersSite());
          return true;
       }
       return false;
