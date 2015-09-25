@@ -21,82 +21,82 @@ import de.rtner.security.auth.spi.SaltedDatabaseServerLoginModule;
 
 public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLoginModule {
 
-   private static final String[] ALL_VALID_OPTIONS = { "siteQuery" };
-   private static final String SITE_QUERY = "siteQuery";
-   protected String siteQuery = "select Site from Principals where PrincipalID=?";
+  private static final String[] ALL_VALID_OPTIONS = {"siteQuery"};
+  private static final String SITE_QUERY = "siteQuery";
+  protected String siteQuery = "select Site from Principals where PrincipalID=?";
 
-   private GNUOBPrincipal principal;
+  private GNUOBPrincipal principal;
 
-   public GNUOBSaltedDatabaseServerLoginModule() {
-      siteQuery = "select Site from Principals where PrincipalID=?";
-   }
+  public GNUOBSaltedDatabaseServerLoginModule() {
+    siteQuery = "select Site from Principals where PrincipalID=?";
+  }
 
-   @Override
-   protected Principal getIdentity() {
-      return principal != null ? principal : super.getIdentity();
-   }
+  @Override
+  protected Principal getIdentity() {
+    return principal != null ? principal : super.getIdentity();
+  }
 
-   protected String getUsersSite() throws LoginException {
-      String username = getUsername();
-      String site = null;
-      Connection conn = null;
-      PreparedStatement ps = null;
+  protected String getUsersSite() throws LoginException {
+    String username = getUsername();
+    String site = null;
+    Connection conn = null;
+    PreparedStatement ps = null;
 
-      try {
-         InitialContext ctx = new InitialContext();
-         DataSource ds = (DataSource) ctx.lookup(dsJndiName);
-         conn = ds.getConnection();
-         // Get the password
-         ps = conn.prepareStatement(siteQuery);
-         ps.setString(1, username);
-         ResultSet rs = ps.executeQuery();
-         if (!rs.next()) {
-            throw new FailedLoginException("No matching username found in Principals");
-         }
-
-         site = rs.getString(1);
-         site = convertRawPassword(site);
-         rs.close();
-      } catch (NamingException ex) {
-         throw new LoginException(ex.toString(true));
-      } catch (SQLException ex) {
-         log.error("Query failed", ex);
-         throw new LoginException(ex.toString());
-      } finally {
-         if (ps != null) {
-            try {
-               ps.close();
-            } catch (SQLException e) {
-            }
-         }
-         if (conn != null) {
-            try {
-               conn.close();
-            } catch (SQLException ex) {
-            }
-         }
+    try {
+      InitialContext ctx = new InitialContext();
+      DataSource ds = (DataSource) ctx.lookup(dsJndiName);
+      conn = ds.getConnection();
+      // Get the password
+      ps = conn.prepareStatement(siteQuery);
+      ps.setString(1, username);
+      ResultSet rs = ps.executeQuery();
+      if (!rs.next()) {
+        throw new FailedLoginException("No matching username found in Principals");
       }
-      return site;
-   }
 
-   @Override
-   public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options) {
-      addValidOptions(ALL_VALID_OPTIONS);
-      super.initialize(subject, callbackHandler, sharedState, options);
-
-      Object tmp = options.get(SITE_QUERY);
-      if (tmp != null) {
-         siteQuery = tmp.toString();
+      site = rs.getString(1);
+      site = convertRawPassword(site);
+      rs.close();
+    } catch (NamingException ex) {
+      throw new LoginException(ex.toString(true));
+    } catch (SQLException ex) {
+      log.error("Query failed", ex);
+      throw new LoginException(ex.toString());
+    } finally {
+      if (ps != null) {
+        try {
+          ps.close();
+        } catch (SQLException e) {
+        }
       }
-   }
-
-   @Override
-   public boolean login() throws LoginException {
-      if (super.login()) {
-         String[] info = getUsernameAndPassword();
-         principal = new GNUOBPrincipal(info[0], info[1], getUsersSite());
-         return true;
+      if (conn != null) {
+        try {
+          conn.close();
+        } catch (SQLException ex) {
+        }
       }
-      return false;
-   }
+    }
+    return site;
+  }
+
+  @Override
+  public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options) {
+    addValidOptions(ALL_VALID_OPTIONS);
+    super.initialize(subject, callbackHandler, sharedState, options);
+
+    Object tmp = options.get(SITE_QUERY);
+    if (tmp != null) {
+      siteQuery = tmp.toString();
+    }
+  }
+
+  @Override
+  public boolean login() throws LoginException {
+    if (super.login()) {
+      String[] info = getUsernameAndPassword();
+      principal = new GNUOBPrincipal(info[0], info[1], getUsersSite());
+      return true;
+    }
+    return false;
+  }
 }

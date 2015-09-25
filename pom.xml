@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.netbrasoft.gnuob</groupId>
+	<groupId>com.netbrasoft</groupId>
 	<artifactId>gnuob-login</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>GNU Open Business Platform</name>
+	<name>GNU Open Business Platform Login Module</name>
 	<description>GNU Open Business Platform is a open source business framework</description>
 
 	<url>https://github.com/bendraaisma/gnuob-login</url>
@@ -21,10 +21,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.jar.plugin>2.5</version.jar.plugin>
-		<version.org.jboss.logging.jboss-logging>3.2.1.Final</version.org.jboss.logging.jboss-logging>
+		<version.org.jboss.logging.jboss-logging>3.3.0.Final</version.org.jboss.logging.jboss-logging>
 		<version.PBKDF2>1.1.1</version.PBKDF2>
-		<version.picketbox>4.9.2.Final</version.picketbox>
-
+		<version.picketbox>4.9.3.Final</version.picketbox>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
@@ -77,24 +76,11 @@
 	</build>
 
 	<profiles>
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<sonar.jdbc.url>
-					jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
-				</sonar.jdbc.url>
-				<sonar.jdbc.username>sonar</sonar.jdbc.username>
-				<sonar.jdbc.password>sonar</sonar.jdbc.password>
-
-				<!-- Optional URL to server. Default value is http://localhost:9000 -->
-				<sonar.host.url>
-					http://localhost:9000
-				</sonar.host.url>
-			</properties>
-		</profile>
 	</profiles>
+	
+	<organization>
+		<name>Netbrasoft</name>
+		<url>www.netbrasoft.com</url>
+	</organization>
 
 </project>
