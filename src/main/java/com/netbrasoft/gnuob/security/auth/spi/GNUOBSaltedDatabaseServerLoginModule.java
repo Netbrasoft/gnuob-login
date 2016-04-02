@@ -1,3 +1,17 @@
+/*
+ * Copyright 2016 Netbrasoft
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
 package com.netbrasoft.gnuob.security.auth.spi;
 
 import java.security.Principal;
@@ -37,19 +51,19 @@ public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLo
   }
 
   protected String getUsersSite() throws LoginException {
-    String username = getUsername();
+    final String username = getUsername();
     String site = null;
     Connection conn = null;
     PreparedStatement ps = null;
 
     try {
-      InitialContext ctx = new InitialContext();
-      DataSource ds = (DataSource) ctx.lookup(dsJndiName);
+      final InitialContext ctx = new InitialContext();
+      final DataSource ds = (DataSource) ctx.lookup(dsJndiName);
       conn = ds.getConnection();
       // Get the password
       ps = conn.prepareStatement(siteQuery);
       ps.setString(1, username);
-      ResultSet rs = ps.executeQuery();
+      final ResultSet rs = ps.executeQuery();
       if (!rs.next()) {
         throw new FailedLoginException("No matching username found in Principals");
       }
@@ -57,22 +71,22 @@ public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLo
       site = rs.getString(1);
       site = convertRawPassword(site);
       rs.close();
-    } catch (NamingException ex) {
+    } catch (final NamingException ex) {
       throw new LoginException(ex.toString(true));
-    } catch (SQLException ex) {
+    } catch (final SQLException ex) {
       log.error("Query failed", ex);
       throw new LoginException(ex.toString());
     } finally {
       if (ps != null) {
         try {
           ps.close();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
         }
       }
       if (conn != null) {
         try {
           conn.close();
-        } catch (SQLException ex) {
+        } catch (final SQLException ex) {
         }
       }
     }
@@ -80,11 +94,12 @@ public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLo
   }
 
   @Override
-  public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options) {
+  public void initialize(final Subject subject, final CallbackHandler callbackHandler, final Map<String, ?> sharedState,
+      final Map<String, ?> options) {
     addValidOptions(ALL_VALID_OPTIONS);
     super.initialize(subject, callbackHandler, sharedState, options);
 
-    Object tmp = options.get(SITE_QUERY);
+    final Object tmp = options.get(SITE_QUERY);
     if (tmp != null) {
       siteQuery = tmp.toString();
     }
@@ -93,7 +108,7 @@ public class GNUOBSaltedDatabaseServerLoginModule extends SaltedDatabaseServerLo
   @Override
   public boolean login() throws LoginException {
     if (super.login()) {
-      String[] info = getUsernameAndPassword();
+      final String[] info = getUsernameAndPassword();
       principal = new GNUOBPrincipal(info[0], info[1], getUsersSite());
       return true;
     }
