@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.netbrasoft.gnuob.security;
+package br.com.netbrasoft.gnuob.security;
 
 import java.security.Principal;
 

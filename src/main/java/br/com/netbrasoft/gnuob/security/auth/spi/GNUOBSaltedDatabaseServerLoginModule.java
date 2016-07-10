@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.netbrasoft.gnuob.security.auth.spi;
+package br.com.netbrasoft.gnuob.security.auth.spi;
 
 import java.security.Principal;
 import java.sql.Connection;
@@ -29,7 +29,7 @@ import javax.security.auth.login.FailedLoginException;
 import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
 
-import com.netbrasoft.gnuob.security.GNUOBPrincipal;
+import br.com.netbrasoft.gnuob.security.GNUOBPrincipal;
 
 import de.rtner.security.auth.spi.SaltedDatabaseServerLoginModule;
 
